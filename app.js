@@ -40,6 +40,8 @@
       $("startBtn").textContent = "Start the quiz";
       $("startBtn").disabled = false;
       $("scoreTotal").textContent = order.length;
+      $("pillQuestions").textContent = `${order.length} questions`;
+      $("pillRounds").textContent = `${data.rounds.length} rounds`;
       $("progressBar").setAttribute("aria-valuemax", order.length);
     } catch (err) {
       $("startBtn").textContent = "Couldn't load";

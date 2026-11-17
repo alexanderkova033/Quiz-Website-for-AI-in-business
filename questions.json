@@ -1,8 +1,25 @@
 {
   "rounds": [
-    { "id": 1, "title": "Real or fake?", "intro": "Six headlines about AI in UK politics. Some happened. Some didn't. Trust your radar." },
-    { "id": 2, "title": "Campaigns are marketing", "intro": "Parties are brands and voters are customers. How well do you know the AI marketing toolkit?" },
-    { "id": 3, "title": "Fakes, facts & rules", "intro": "Deepfakes, chatbots that get it wrong, and the law that's still being written." }
+    {
+      "id": 1,
+      "title": "Real or fake?",
+      "intro": "Six headlines about AI in UK politics. Some happened. Some didn't. Trust your radar."
+    },
+    {
+      "id": 2,
+      "title": "How AI works",
+      "intro": "How chatbots write their answers, and how AI tells politicians how many people like them."
+    },
+    {
+      "id": 3,
+      "title": "Campaigns are marketing",
+      "intro": "Parties are brands and voters are customers. How well do you know the AI marketing toolkit?"
+    },
+    {
+      "id": 4,
+      "title": "Fakes, facts & rules",
+      "intro": "Deepfakes, chatbots that get it wrong, and the law that's still being written."
+    }
   ],
   "questions": [
     {
@@ -10,7 +27,10 @@
       "round": 1,
       "type": "realfake",
       "question": "“An AI candidate stood for Parliament in the 2024 general election.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Real",
       "explanation": "‘AI Steve’ stood in Brighton Pavilion. The candidate was the human Steve Endacott, and voters could chat to his AI avatar 24/7 to shape his policies. He would have sat as the MP himself.",
       "source_name": "NBC News, June 2024",
@@ -21,7 +41,10 @@
       "round": 1,
       "type": "realfake",
       "question": "“MPs can now send an AI avatar to vote for them in Parliament.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Fake",
       "explanation": "Only elected MPs can vote in the House of Commons. AI avatars can’t.",
       "source_name": "UK Parliament",
@@ -32,7 +55,10 @@
       "round": 1,
       "type": "realfake",
       "question": "“A cabinet minister asked ChatGPT which podcasts he should go on.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Real",
       "explanation": "Then-Tech Secretary Peter Kyle, 2025. New Scientist got his ChatGPT chats using a Freedom of Information request.",
       "source_name": "New Scientist, March 2025",
@@ -43,7 +69,10 @@
       "round": 1,
       "type": "realfake",
       "question": "“The UK banned all AI-made political adverts in 2026.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Fake",
       "explanation": "There’s no ban. The Electoral Commission expects AI campaign content to be clearly labelled and not to mislead voters.",
       "source_name": "Full Fact, April 2026",
@@ -54,7 +83,10 @@
       "round": 1,
       "type": "realfake",
       "question": "“Scammers paid for deepfake Facebook adverts using Rishi Sunak’s face while he was Prime Minister.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Real",
       "explanation": "In January 2024, 143 deepfake ads used his face to push a scam investment, reaching up to 400,000 people. They were bought with the same ad tools real brands use.",
       "source_name": "Fenimore Harper research, via Engadget, Jan 2024",
@@ -65,18 +97,74 @@
       "round": 1,
       "type": "realfake",
       "question": "“Researchers found that AI fakes changed the result of the 2024 general election.”",
-      "options": ["Real", "Fake"],
+      "options": [
+        "Real",
+        "Fake"
+      ],
       "answer": "Fake",
       "explanation": "The Alan Turing Institute found no evidence AI fakes changed the 2024 result. The risk is real, but the right response is scepticism, not panic.",
       "source_name": "Alan Turing Institute (CETaS), 2024, via IET",
       "source_url": "https://engx.theiet.org/b/articles/posts/researchers-find-no-evidence-that-ai-generated-content-impacted-recent-european-elections"
     },
     {
-      "id": "r2-ai-steve-votes",
+      "id": "r2-chatbot-words",
       "round": 2,
       "type": "mcq",
+      "question": "How does a chatbot like ChatGPT write its answers?",
+      "options": [
+        "It looks each fact up in a database",
+        "It predicts the next most likely word",
+        "A human checks every answer",
+        "It copies from Wikipedia"
+      ],
+      "answer": "It predicts the next most likely word",
+      "explanation": "The UK government’s AI Playbook says language models predict the next most likely word, so their answers can look correct without actually being correct.",
+      "source_name": "GOV.UK, AI Playbook for the UK Government, Feb 2025",
+      "source_url": "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html"
+    },
+    {
+      "id": "r2-mrp-labour",
+      "round": 2,
+      "type": "mcq",
+      "question": "YouGov’s final MRP poll before the 2024 general election said Labour would win 431 seats. How many did Labour actually win?",
+      "options": [
+        "326",
+        "365",
+        "411",
+        "450"
+      ],
+      "answer": "411",
+      "explanation": "Labour won 411. The MRP was 20 seats too high for Labour, but it got the Lib Dems exactly right at 72. MRP is a big poll plus a statistical model that estimates every constituency.",
+      "source_name": "YouGov, 3 July 2024; UK Parliament election results",
+      "source_url": "https://yougov.com/en-gb/articles/49950-final-yougov-mrp-shows-labour-on-course-for-historic-election-victory"
+    },
+    {
+      "id": "r2-social-listening",
+      "round": 2,
+      "type": "mcq",
+      "question": "Ipsos used AI ‘social listening’ on 950,000+ posts during the 2024 election campaign. What did it find?",
+      "options": [
+        "Most posts about party leaders were positive",
+        "Talk about every party leader was more negative than positive",
+        "Nobody posted about health",
+        "Posts were split exactly 50/50"
+      ],
+      "answer": "Talk about every party leader was more negative than positive",
+      "explanation": "Online talk about every party leader was mostly negative, and health was the biggest topic. But social media isn’t the whole country: loud people aren’t the majority.",
+      "source_name": "Ipsos, “From Hashtags to Votes”, 3 July 2024",
+      "source_url": "https://www.ipsos.com/en-uk/hashtags-votes-analysing-online-engagement-during-ge2024"
+    },
+    {
+      "id": "r2-ai-steve-votes",
+      "round": 3,
+      "type": "mcq",
       "question": "‘AI Steve’ stood in Brighton Pavilion in 2024, promising voters 24/7 access through his AI avatar. How many votes did he get?",
-      "options": ["17,900", "1,790", "179", "17"],
+      "options": [
+        "17,900",
+        "1,790",
+        "179",
+        "17"
+      ],
       "answer": "179",
       "explanation": "Just 179 votes (0.3%), last of 8 candidates. The Green candidate won with over 28,000.",
       "source_name": "UK Parliament election results, 2024",
@@ -84,7 +172,7 @@
     },
     {
       "id": "r2-ai-steve-lesson",
-      "round": 2,
+      "round": 3,
       "type": "mcq",
       "question": "AI Steve got coverage from The Guardian to NBC News, but only 179 votes. What’s the marketing lesson?",
       "options": [
@@ -100,10 +188,15 @@
     },
     {
       "id": "r2-ad-spend",
-      "round": 2,
+      "round": 3,
       "type": "mcq",
       "question": "In the six weeks of the 2024 general election, how much did parties and campaigners spend on Facebook, Instagram and Google ads?",
-      "options": ["£1.75 million", "£7.3 million", "£11.2 million", "£112 million"],
+      "options": [
+        "£1.75 million",
+        "£7.3 million",
+        "£11.2 million",
+        "£112 million"
+      ],
       "answer": "£11.2 million",
       "explanation": "£11.2m, up from £7.3m in 2019 and £1.75m in 2015. It was the most digital UK election yet.",
       "source_name": "Who Targets Me, July 2024",
@@ -111,7 +204,7 @@
     },
     {
       "id": "r2-lookalike",
-      "round": 2,
+      "round": 3,
       "type": "mcq",
       "question": "Ad platforms help parties find ‘lookalike audiences’. What are they?",
       "options": [
@@ -127,10 +220,15 @@
     },
     {
       "id": "r2-consult",
-      "round": 2,
+      "round": 3,
       "type": "mcq",
       "question": "The government’s AI tool ‘Consult’ sorted 50,000+ public responses about the water industry. How long did it take?",
-      "options": ["About 2 hours", "About 2 days", "About 2 weeks", "About 2 months"],
+      "options": [
+        "About 2 hours",
+        "About 2 days",
+        "About 2 weeks",
+        "About 2 months"
+      ],
       "answer": "About 2 hours",
       "explanation": "About 2 hours, and in tests it matched human experts. It could save 75,000 days of work a year. Taxpayers are the government’s ‘customers’.",
       "source_name": "GOV.UK, 2025",
@@ -138,10 +236,15 @@
     },
     {
       "id": "r3-scotland-chatbots",
-      "round": 3,
+      "round": 4,
       "type": "mcq",
       "question": "Before Scotland’s May 2026 election, researchers asked AI chatbots questions about the election. How many of the answers contained factual errors?",
-      "options": ["Almost none", "About 1 in 20", "About 1 in 10", "More than 1 in 3"],
+      "options": [
+        "Almost none",
+        "About 1 in 20",
+        "About 1 in 10",
+        "More than 1 in 3"
+      ],
       "answer": "More than 1 in 3",
       "explanation": "More than a third of answers had factual errors. ChatGPT even gave an election date that was wrong by over two months.",
       "source_name": "Demos, 2026, via LocalGov",
@@ -149,10 +252,15 @@
     },
     {
       "id": "r3-deepfake-seen",
-      "round": 3,
+      "round": 4,
       "type": "mcq",
       "question": "Before the May 2026 local elections, what share of voters said they’d seen a deepfake or AI-made content about a candidate?",
-      "options": ["3%", "10%", "30%", "60%"],
+      "options": [
+        "3%",
+        "10%",
+        "30%",
+        "60%"
+      ],
       "answer": "30%",
       "explanation": "About 30% of voters, in a Demos poll of 2,000+ people. That’s almost one in three.",
       "source_name": "Demos poll, 2026, via LocalGov",
@@ -160,10 +268,15 @@
     },
     {
       "id": "r3-starmer-audio",
-      "round": 3,
+      "round": 4,
       "type": "mcq",
       "question": "In October 2023, fake audio of Keir Starmer (then Labour leader) swearing at staff spread on X. Roughly how many views did it get?",
-      "options": ["15,000", "150,000", "1.5 million", "15 million"],
+      "options": [
+        "15,000",
+        "150,000",
+        "1.5 million",
+        "15 million"
+      ],
       "answer": "1.5 million",
       "explanation": "About 1.5 million views, and X refused to take it down. It’s widely seen as Britain’s first big deepfake moment.",
       "source_name": "Full Fact",
@@ -171,10 +284,15 @@
     },
     {
       "id": "r3-ai-checker",
-      "round": 3,
+      "round": 4,
       "type": "mcq",
       "question": "AI can fight fake AI too. Roughly how many social media posts did the Electoral Commission’s AI scan for deepfakes during the May 2026 elections?",
-      "options": ["30,000", "300,000", "3 million", "30 million"],
+      "options": [
+        "30,000",
+        "300,000",
+        "3 million",
+        "30 million"
+      ],
       "answer": "3 million",
       "explanation": "About 3 million posts. 147 were flagged for humans to check, and 10 were sent to platforms or police.",
       "source_name": "Tech Policy Press, 2026",
@@ -182,7 +300,7 @@
     },
     {
       "id": "r3-election-offence",
-      "round": 3,
+      "round": 4,
       "type": "mcq",
       "question": "Which of these is already an election offence in the UK?",
       "options": [
