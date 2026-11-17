@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>AI × UK Politics Quiz</title>
   <meta name="description" content="A 5-minute self-paced quiz: can you spot what's real about AI in UK politics? No sign-up, nothing collected.">
-  <meta name="theme-color" content="#090f08" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f2f4f0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#070b16">
   <meta property="og:title" content="AI × UK Politics Quiz">
   <meta property="og:description" content="Game-changer or democracy-breaker? 19 questions, 4 rounds, about 5 minutes.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090f08'/%3E%3Cpath d='M18 33l9 9 19-20' fill='none' stroke='%2368aa6e' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -14,8 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Literata:ital,opsz,wght@0,7..72,500;1,7..72,400;1,7..72,500&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="quiz-skin.css">
 </head>
-<body>
+<body data-stage="1">
   <div class="bg" aria-hidden="true">
     <div class="bg-grid"></div>
     <div class="aurora aurora-1"></div>
@@ -78,6 +78,7 @@
       <p class="eyebrow">Your result</p>
       <p class="score-big"><span id="scoreNum">0</span><span class="score-of">/<span id="scoreTotal">16</span></span></p>
       <h2 id="resultTitle" class="headline headline-md" tabindex="-1">Fact-check legend</h2>
+      <p class="stage-reached" id="stageReached">You zoomed out to <strong id="stageName">Your desk</strong></p>
       <p class="sub" id="resultBlurb"></p>
       <div class="card takeaways">
         <h3>3 things to take away</h3>

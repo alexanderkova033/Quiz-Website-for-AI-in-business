@@ -179,6 +179,8 @@ main { flex: 1; width: 100%; max-width: 44rem; margin: 0 auto; padding: 0 16px 2
 .feedback .btn { width: 100%; }
 
 /* ── Results ─────────────────────────────────────────── */
+.stage-reached { margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--text); }
+.stage-reached strong { font-family: var(--font-ui); font-style: normal; color: var(--accent); }
 .round-score { margin: 0; font-weight: 700; color: var(--text); }
 .score-big { margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: clamp(4rem, 22vw, 6.5rem); line-height: 1; color: var(--accent); }
 .score-of { font-size: .4em; color: var(--muted); }

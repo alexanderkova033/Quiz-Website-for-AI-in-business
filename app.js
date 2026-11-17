@@ -13,6 +13,26 @@
     { min: 0, title: "Fresh recruit", blurb: "AI politics is full of surprises. Now you know the tricks, you're a much harder target." },
   ];
 
+  /* Zoom-out journey: every 3 correct answers move one stage further out.
+     0–2 → 1 desk, 3–5 → 2 room, … 18–19 → 7 deep space (the win).
+     The skin styles body[data-stage]; reduced motion makes the swap instant (styles.css). */
+  const STAGES = [
+    { name: "Your desk", line: "You're still at the screen. Every fake looks real from this close." },
+    { name: "Your room", line: "You've leaned back from the screen. A little distance already helps." },
+    { name: "Westminster", line: "You can see where the rules get made, and where the AI tricks are aimed." },
+    { name: "London", line: "You can see the campaigns, the ad money and the fakes moving across the city." },
+    { name: "The UK", line: "You can see the whole electorate, and how AI reaches every corner of it." },
+    { name: "Earth", line: "From orbit, the same AI tricks show up in elections everywhere. You spot most of them." },
+    { name: "Deep space", line: "Nothing gets past you. You've zoomed all the way out: the full picture." },
+  ];
+  const stageFor = (n) => Math.min(STAGES.length, 1 + Math.floor(n / 3));
+  function setStage(n) {
+    const s = stageFor(n);
+    const changed = document.body.dataset.stage !== String(s);
+    document.body.dataset.stage = s;
+    return changed ? s : 0;
+  }
+
   let data = null;
   let order = [];
   let idx = 0;
@@ -52,6 +72,8 @@
 
   function start() {
     idx = 0; score = 0; roundScore = 0;
+    document.querySelector(".topbar").dataset.score = 0;
+    setStage(0);
     showRound(order[0].round, null);
   }
 
@@ -120,6 +142,7 @@
   function answer(chosen, q) {
     const correct = chosen.dataset.value === q.answer;
     if (correct) { score++; roundScore++; }
+    document.querySelector(".topbar").dataset.score = score;
     for (const b of $("qOptions").children) {
       b.disabled = true;
       if (b.dataset.value === q.answer) { b.classList.add("is-correct"); mark(b, "✓ Answer"); }
@@ -139,9 +162,15 @@
     $("feedback").hidden = false;
     $("progressBar").setAttribute("aria-valuenow", idx + 1);
     $("progressFill").style.width = ((idx + 1) / order.length) * 100 + "%";
-    $("liveRegion").textContent = v.textContent + " " + q.explanation;
+    const moved = correct ? setStage(score) : 0;
+    $("liveRegion").textContent = v.textContent + " " + q.explanation + (moved ? ` Zoomed out to: ${STAGES[moved - 1].name}.` : "");
     $("nextBtn").focus({ preventScroll: true });
-    $("feedback").scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    // Bring the whole Next button into view without pushing the verdict off the top.
+    requestAnimationFrame(() => {
+      const vr = $("verdict").getBoundingClientRect(), nr = $("nextBtn").getBoundingClientRect();
+      const dy = Math.min(nr.bottom + 16 - innerHeight, vr.top - 8);
+      if (dy > 0) window.scrollBy({ top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    });
   }
 
   function next() {
@@ -164,7 +193,9 @@
     const r = rank();
     $("scoreNum").textContent = score;
     $("resultTitle").textContent = r.title;
-    $("resultBlurb").textContent = r.blurb;
+    const st = STAGES[stageFor(score) - 1];
+    $("stageName").textContent = st.name;
+    $("resultBlurb").textContent = st.line;
     show("results");
   }
 
@@ -197,7 +228,7 @@
     const c = document.createElement("canvas");
     c.width = W; c.height = H;
     const ctx = c.getContext("2d");
-    const bg = "#090f08", accent = "#68aa6e", text = "#dde5de", muted = "#a3b8a5";
+    const bg = "#070b16", accent = "#4fd8ff", text = "#eaf6ff", muted = "#a9c6dc", pink = "#ff4f7b";
 
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
     const glow = (x, y, r, col, a) => {
@@ -205,10 +236,10 @@
       g.addColorStop(0, col + a); g.addColorStop(1, col + "00");
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     };
-    glow(160, 120, 760, accent, "55");
-    glow(1000, 420, 620, "#6b8cff", "30");
-    glow(420, 1360, 620, "#c490e8", "26");
-    ctx.fillStyle = "rgba(104,170,110,0.22)";
+    glow(160, 120, 760, pink, "30");
+    glow(1000, 420, 620, "#4fd8ff", "26");
+    glow(420, 1360, 620, "#7a5ae0", "30");
+    ctx.fillStyle = "rgba(234,246,255,0.35)";
     for (let y = 30; y < H * 0.6; y += 36) for (let x = 30; x < W; x += 36) { ctx.beginPath(); ctx.arc(x, y, 1.6, 0, Math.PI * 2); ctx.fill(); }
 
     // frame
@@ -237,13 +268,13 @@
     ctx.fillText(r.title, 100, 790);
 
     ctx.fillStyle = muted; ctx.font = 'italic 400 44px "Literata", Georgia, serif';
-    wrapLines(ctx, "on the AI × UK Politics quiz. Game-changer or democracy-breaker?", W - 200)
+    wrapLines(ctx, `Zoomed out to ${STAGES[stageFor(score) - 1].name} on the AI × UK Politics quiz.`, W - 200)
       .forEach((l, i) => ctx.fillText(l, 100, 880 + i * 60));
 
     // CTA pill
-    ctx.fillStyle = accent;
+    ctx.fillStyle = pink;
     ctx.beginPath(); ctx.roundRect(100, 1040, W - 200, 170, 24); ctx.fill();
-    ctx.fillStyle = "#07110a"; ctx.textAlign = "center"; ctx.font = '800 48px "DM Sans", system-ui, sans-serif';
+    ctx.fillStyle = "#0b1626"; ctx.textAlign = "center"; ctx.font = '800 48px "DM Sans", system-ui, sans-serif';
     ctx.fillText("Can you beat me?", W / 2, 1110);
     const host = SITE_URL.replace(/^https?:\/\//, "").replace(/\/$/, "");
     let fs = 36;
