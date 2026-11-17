@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AI × UK Politics Quiz</title>
+  <meta name="description" content="A 5-minute self-paced quiz: can you spot what's real about AI in UK politics? No sign-up, nothing collected.">
+  <meta name="theme-color" content="#090f08" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4f0" media="(prefers-color-scheme: light)">
+  <meta property="og:title" content="AI × UK Politics Quiz">
+  <meta property="og:description" content="Game-changer or democracy-breaker? 16 questions, 3 rounds, about 5 minutes.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090f08'/%3E%3Cpath d='M18 33l9 9 19-20' fill='none' stroke='%2368aa6e' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&family=Literata:ital,opsz,wght@0,7..72,500;1,7..72,400;1,7..72,500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <span class="brand"><span class="brand-mark" aria-hidden="true">✓</span> ai × uk <em>politics</em></span>
+    <div class="progress-wrap" id="progressWrap" hidden>
+      <span class="progress-label" id="progressLabel">Question 1 of 16</span>
+      <div class="progress" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="progressBar"><span id="progressFill"></span></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- LANDING -->
+    <section class="screen" id="screen-landing" aria-labelledby="landingTitle">
+      <p class="eyebrow">AI in Business &amp; Marketing Society</p>
+      <h1 id="landingTitle" class="headline" tabindex="-1">AI × UK <span class="accent">Politics</span></h1>
+      <p class="tagline">Game-changer or democracy-breaker?</p>
+      <p class="sub">Three short rounds. You'll find out straight after each answer whether you were right, and why, with a source you can check. About five minutes.</p>
+      <ul class="pills" aria-label="What's in the quiz">
+        <li>16 questions</li><li>3 rounds</li><li>~5 minutes</li>
+      </ul>
+      <button class="btn btn-primary btn-lg" id="startBtn" type="button" disabled>Loading questions…</button>
+      <p class="reassure">No sign-up. Nothing you click leaves your phone.</p>
+      <p class="error" id="loadError" role="alert" hidden></p>
+    </section>
+
+    <!-- ROUND TRANSITION -->
+    <section class="screen" id="screen-round" aria-labelledby="roundTitle" hidden>
+      <p class="eyebrow" id="roundEyebrow">Round 1 of 3</p>
+      <h2 id="roundTitle" class="headline headline-md" tabindex="-1">Real or fake?</h2>
+      <p class="sub" id="roundIntro"></p>
+      <p class="round-score" id="roundScore" hidden></p>
+      <button class="btn btn-primary btn-lg" id="roundBtn" type="button">Let's go</button>
+    </section>
+
+    <!-- QUESTION -->
+    <section class="screen" id="screen-question" aria-labelledby="qText" hidden>
+      <div class="card">
+        <p class="eyebrow" id="qMeta">Round 1 · Real or fake?</p>
+        <h2 id="qText" class="question" tabindex="-1"></h2>
+        <div class="options" id="qOptions" role="group" aria-labelledby="qText"></div>
+        <div class="feedback" id="feedback" hidden>
+          <p class="verdict" id="verdict"></p>
+          <p class="explain" id="explain"></p>
+          <p class="source">Source: <a id="sourceLink" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+          <button class="btn btn-primary" id="nextBtn" type="button">Next question</button>
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" id="liveRegion"></p>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="screen" id="screen-results" aria-labelledby="resultTitle" hidden>
+      <p class="eyebrow">Your result</p>
+      <p class="score-big"><span id="scoreNum">0</span><span class="score-of">/<span id="scoreTotal">16</span></span></p>
+      <h2 id="resultTitle" class="headline headline-md" tabindex="-1">Fact-check legend</h2>
+      <p class="sub" id="resultBlurb"></p>
+      <div class="card takeaways">
+        <h3>3 things to take away</h3>
+        <ol>
+          <li><strong>AI is a marketing super-tool.</strong> Campaigns use the same tricks brands do: target, create, test, serve.</li>
+          <li><strong>It cuts both ways.</strong> It saves time and money, but fakes and wrong chatbot answers can mislead voters.</li>
+          <li><strong>Before you share, check:</strong> who posted it, and is anyone trustworthy reporting it too?</li>
+        </ol>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary btn-lg" id="shareBtn" type="button">Get my share card</button>
+        <button class="btn btn-ghost" id="restartBtn" type="button">Play again</button>
+      </div>
+    </section>
+
+    <!-- SHARE CARD -->
+    <section class="screen" id="screen-share" aria-labelledby="shareTitle" hidden>
+      <h2 id="shareTitle" class="headline headline-sm" tabindex="-1">Your share card</h2>
+      <img id="shareImg" class="share-img" alt="">
+      <div class="actions">
+        <button class="btn btn-primary btn-lg" id="shareNativeBtn" type="button" hidden>Share</button>
+        <a class="btn btn-primary btn-lg" id="downloadBtn" download="ai-uk-politics-quiz.png" href="#">Download PNG</a>
+        <button class="btn btn-ghost" id="backBtn" type="button">Back to results</button>
+      </div>
+      <p class="reassure" id="shareStatus" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Made for an AI in Business &amp; Marketing Society talk · Facts checked Nov 2026 · No cookies, no tracking</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
