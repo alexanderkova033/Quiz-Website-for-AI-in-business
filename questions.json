@@ -32,7 +32,7 @@
         "Fake"
       ],
       "answer": "Real",
-      "explanation": "‘AI Steve’ stood in Brighton Pavilion. The candidate was the human Steve Endacott, and voters could chat to his AI avatar 24/7 to shape his policies. He would have sat as the MP himself.",
+      "explanation": "Real: ‘AI Steve’ stood in Brighton Pavilion, with a human candidate behind the avatar.",
       "source_name": "NBC News, June 2024",
       "source_url": "https://www.nbcnews.com/tech/tech-news/ai-candidate-running-parliament-uk-says-ai-can-humanize-politics-rcna156991"
     },
@@ -46,7 +46,7 @@
         "Fake"
       ],
       "answer": "Fake",
-      "explanation": "Only elected MPs can vote in the House of Commons. AI avatars can’t.",
+      "explanation": "Fake: only elected MPs can vote in the Commons, never an AI avatar.",
       "source_name": "UK Parliament",
       "source_url": "https://www.parliament.uk/"
     },
@@ -60,7 +60,7 @@
         "Fake"
       ],
       "answer": "Real",
-      "explanation": "Then-Tech Secretary Peter Kyle, 2025. New Scientist got his ChatGPT chats using a Freedom of Information request.",
+      "explanation": "Real: a Freedom of Information request revealed Tech Secretary Peter Kyle’s ChatGPT chats.",
       "source_name": "New Scientist, March 2025",
       "source_url": "https://www.newscientist.com/article/2472068-revealed-how-the-uk-tech-secretary-uses-chatgpt-for-policy-advice/"
     },
@@ -74,7 +74,7 @@
         "Fake"
       ],
       "answer": "Fake",
-      "explanation": "There’s no ban. The Electoral Commission expects AI campaign content to be clearly labelled and not to mislead voters.",
+      "explanation": "Fake: there’s no ban, only guidance that AI content is labelled and not misleading.",
       "source_name": "Full Fact, April 2026",
       "source_url": "https://fullfact.org/politics/glasgow-southside-AI-generated-campaign-videos/"
     },
@@ -88,7 +88,7 @@
         "Fake"
       ],
       "answer": "Real",
-      "explanation": "In January 2024, 143 deepfake ads used his face to push a scam investment, reaching up to 400,000 people. They were bought with the same ad tools real brands use.",
+      "explanation": "Real: 143 deepfake scam ads of Sunak reached up to 400,000 people in 2024.",
       "source_name": "Fenimore Harper research, via Engadget, Jan 2024",
       "source_url": "https://www.engadget.com/facebook-was-inundated-with-deepfaked-ads-impersonating-uks-prime-minister-143009584.html"
     },
@@ -102,7 +102,7 @@
         "Fake"
       ],
       "answer": "Fake",
-      "explanation": "The Alan Turing Institute found no evidence AI fakes changed the 2024 result. The risk is real, but the right response is scepticism, not panic.",
+      "explanation": "Fake: the Alan Turing Institute found no evidence AI fakes changed the 2024 result.",
       "source_name": "Alan Turing Institute (CETaS), 2024, via IET",
       "source_url": "https://engx.theiet.org/b/articles/posts/researchers-find-no-evidence-that-ai-generated-content-impacted-recent-european-elections"
     },
@@ -118,7 +118,7 @@
         "It copies from Wikipedia"
       ],
       "answer": "It predicts the next most likely word",
-      "explanation": "The UK government’s AI Playbook says language models predict the next most likely word, so their answers can look correct without actually being correct.",
+      "explanation": "Chatbots predict the next likely word, so answers can sound right but be wrong.",
       "source_name": "GOV.UK, AI Playbook for the UK Government, Feb 2025",
       "source_url": "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html"
     },
@@ -134,7 +134,7 @@
         "450"
       ],
       "answer": "411",
-      "explanation": "Labour won 411. The MRP was 20 seats too high for Labour, but it got the Lib Dems exactly right at 72. MRP is a big poll plus a statistical model that estimates every constituency.",
+      "explanation": "411: the MRP overshot Labour by 20 seats but nailed the Lib Dems.",
       "source_name": "YouGov, 3 July 2024; UK Parliament election results",
       "source_url": "https://yougov.com/en-gb/articles/49950-final-yougov-mrp-shows-labour-on-course-for-historic-election-victory"
     },
@@ -150,7 +150,7 @@
         "Posts were split exactly 50/50"
       ],
       "answer": "Talk about every party leader was more negative than positive",
-      "explanation": "Online talk about every party leader was mostly negative, and health was the biggest topic. But social media isn’t the whole country: loud people aren’t the majority.",
+      "explanation": "Mostly negative: talk about every leader leaned negative, but loud posters aren’t the whole country.",
       "source_name": "Ipsos, “From Hashtags to Votes”, 3 July 2024",
       "source_url": "https://www.ipsos.com/en-uk/hashtags-votes-analysing-online-engagement-during-ge2024"
     },
@@ -166,7 +166,7 @@
         "17"
       ],
       "answer": "179",
-      "explanation": "Just 179 votes (0.3%), last of 8 candidates. The Green candidate won with over 28,000.",
+      "explanation": "179: ‘AI Steve’ got just 0.3% of the vote, last of 8 candidates.",
       "source_name": "UK Parliament election results, 2024",
       "source_url": "https://electionresults.parliament.uk/elections/3339"
     },
@@ -182,7 +182,7 @@
         "Avatars are illegal in elections"
       ],
       "answer": "Attention isn’t the same as trust",
-      "explanation": "The avatar came from Neural Voice, a company chaired by the human Steve. The campaign was great free publicity for the tech. It got clicks, but not votes.",
+      "explanation": "Attention isn’t trust: the campaign won worldwide publicity, but not votes.",
       "source_name": "NBC News, June 2024",
       "source_url": "https://www.nbcnews.com/tech/tech-news/ai-candidate-running-parliament-uk-says-ai-can-humanize-politics-rcna156991"
     },
@@ -198,7 +198,7 @@
         "£112 million"
       ],
       "answer": "£11.2 million",
-      "explanation": "£11.2m, up from £7.3m in 2019 and £1.75m in 2015. It was the most digital UK election yet.",
+      "explanation": "£11.2m: up from £7.3m in 2019 and £1.75m in 2015.",
       "source_name": "Who Targets Me, July 2024",
       "source_url": "https://buttondown.com/whotargetsme/archive/two-billion-ads/"
     },
@@ -214,7 +214,7 @@
         "Voters who live on the same street"
       ],
       "answer": "People who resemble a party’s existing supporters",
-      "explanation": "Algorithms find people similar to a party’s supporters, exactly as a trainer brand finds people like its customers. Around 1 in 5 Meta ads in the first week of the 2024 campaign used them.",
+      "explanation": "People like a party’s supporters; about 1 in 5 early 2024 Meta ads used them.",
       "source_name": "Who Targets Me, 2024",
       "source_url": "https://buttondown.com/whotargetsme/archive/two-billion-ads/"
     },
@@ -230,7 +230,7 @@
         "About 2 months"
       ],
       "answer": "About 2 hours",
-      "explanation": "About 2 hours, and in tests it matched human experts. It could save 75,000 days of work a year. Taxpayers are the government’s ‘customers’.",
+      "explanation": "About 2 hours, matching human experts and potentially saving 75,000 days of work a year.",
       "source_name": "GOV.UK, 2025",
       "source_url": "https://www.gov.uk/government/news/ground-breaking-use-of-ai-saves-taxpayers-money-and-delivers-greater-government-efficiency"
     },
@@ -246,7 +246,7 @@
         "More than 1 in 3"
       ],
       "answer": "More than 1 in 3",
-      "explanation": "More than a third of answers had factual errors. ChatGPT even gave an election date that was wrong by over two months.",
+      "explanation": "More than 1 in 3: ChatGPT got the election date wrong by over two months.",
       "source_name": "Demos, 2026, via LocalGov",
       "source_url": "https://www.localgov.co.uk/Almost-one-in-three-voters-saw-deepfake-AI-content-of-candidates-ahead-of-local-elections/64439"
     },
@@ -262,7 +262,7 @@
         "60%"
       ],
       "answer": "30%",
-      "explanation": "About 30% of voters, in a Demos poll of 2,000+ people. That’s almost one in three.",
+      "explanation": "30%: almost one in three voters, in a Demos poll of 2,000+ people.",
       "source_name": "Demos poll, 2026, via LocalGov",
       "source_url": "https://www.localgov.co.uk/Almost-one-in-three-voters-saw-deepfake-AI-content-of-candidates-ahead-of-local-elections/64439"
     },
@@ -278,7 +278,7 @@
         "15 million"
       ],
       "answer": "1.5 million",
-      "explanation": "About 1.5 million views, and X refused to take it down. It’s widely seen as Britain’s first big deepfake moment.",
+      "explanation": "1.5 million views, and X refused to take the fake audio down.",
       "source_name": "Full Fact",
       "source_url": "https://fullfact.org/online/audio-starmer-recirculating-no-evidence/"
     },
@@ -294,7 +294,7 @@
         "30 million"
       ],
       "answer": "3 million",
-      "explanation": "About 3 million posts. 147 were flagged for humans to check, and 10 were sent to platforms or police.",
+      "explanation": "3 million posts: 147 flagged for humans, 10 sent to platforms or police.",
       "source_name": "Tech Policy Press, 2026",
       "source_url": "https://techpolicy.press/uk-election-watchdog-develops-ai-system-to-flag-deepfakes-within-3-hours"
     },
@@ -310,7 +310,7 @@
         "Posting an AI image that’s clearly labelled as AI"
       ],
       "answer": "Making a false statement of fact about a candidate’s personal character or conduct",
-      "explanation": "That’s an offence under the Representation of the People Act 1983. Whether a deepfake counts as a ‘false statement’ is still unclear, and the House of Lords is debating changes now.",
+      "explanation": "False statements about a candidate’s character are illegal; whether deepfakes count is still unclear.",
       "source_name": "Full Fact briefing on political deepfakes, 2026",
       "source_url": "https://fullfact.org/documents/410/Full_Fact_briefing_-_political_deepfakes.pdf"
     }

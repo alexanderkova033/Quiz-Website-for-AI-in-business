@@ -59,6 +59,7 @@
     const r = roundOf(roundId);
     const total = data.rounds.length;
     $("roundEyebrow").textContent = `Round ${roundId} of ${total}`;
+    $("screen-round").dataset.round = roundId;
     $("roundTitle").textContent = r.title;
     $("roundIntro").textContent = r.intro;
     const rs = $("roundScore");
@@ -76,6 +77,7 @@
     const q = order[idx];
     const r = roundOf(q.round);
     $("qMeta").textContent = `Round ${q.round} · ${r.title}`;
+    $("screen-question").dataset.round = q.round;
     $("qText").textContent = q.question;
     $("progressLabel").textContent = `Question ${idx + 1} of ${order.length}`;
     $("progressBar").setAttribute("aria-valuenow", idx);
