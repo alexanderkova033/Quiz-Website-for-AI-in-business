@@ -574,3 +574,28 @@ body[data-scale] .foot { padding-bottom: 88px; }
   .btn-primary:hover { background: var(--pink); }
   .btn-ghost:hover { background: var(--hud-2); }
 }
+
+/* ═══ v3c fix (18 Nov, before the freeze): the scale bar moves into the VIEW gauge ═══
+   On landscape iPads (1024×768) the wider card covered the right end of the
+   bottom-left scale bar, so it couldn't be read. The bar now sits at the bottom of the
+   VIEW/ZOOM gauge in the top bar, where no card ever reaches. It stays exactly 25vw
+   long and is labelled with a quarter of the view width (.topbar[data-scale]). */
+body[data-scale]::after { content: none !important; }
+body[data-scale] .foot { padding-bottom: 1.25rem; }
+
+html body .topbar[data-view][data-scale]:has(#progressWrap:not([hidden]))::before {
+  content: "VIEW " attr(data-view) "\A ZOOM " attr(data-zoom) "\A\A ├ " attr(data-scale) " ┤" !important;
+  min-width: 25vw;
+  box-sizing: content-box;
+  padding-bottom: 22px;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) .7rem calc(100% - 9px) / 3px 12px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) calc(.7rem + 25vw - 3px) calc(100% - 9px) / 3px 12px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) calc(.7rem + 12.5vw - 1px) calc(100% - 11px) / 2px 8px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) .7rem calc(100% - 13px) / 25vw 3px no-repeat,
+    var(--hud);
+}
+/* On phones the gauge is already a full-width strip */
+@media (max-width: 699px) {
+  html body .topbar[data-view][data-scale]:has(#progressWrap:not([hidden]))::before { min-width: 0; box-sizing: border-box; }
+}

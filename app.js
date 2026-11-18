@@ -54,6 +54,7 @@
     const tb = document.querySelector(".topbar");
     tb.dataset.view = z.view;
     tb.dataset.zoom = z.zoom;
+    tb.dataset.scale = z.quarter;                 // scale bar now drawn inside the VIEW gauge (skin v3c)
     return changed ? s : 0;
   }
 
@@ -196,11 +197,14 @@
       + (moved ? ` New scene: ${STAGES[moved - 1].name}.` : "");
     $("nextBtn").focus({ preventScroll: true });
     // Bring the whole Next button into view without pushing the verdict off the top.
-    requestAnimationFrame(() => {
+    // Measured in page coordinates, once now and once after the feedback's slide-in settles.
+    const reveal = () => {
       const vr = $("verdict").getBoundingClientRect(), nr = $("nextBtn").getBoundingClientRect();
       const dy = Math.min(nr.bottom + 16 - innerHeight, vr.top - 8);
-      if (dy > 0) window.scrollBy({ top: dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-    });
+      if (dy > 1) window.scrollTo({ top: scrollY + dy, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    };
+    requestAnimationFrame(reveal);
+    setTimeout(reveal, 450);
   }
 
   function next() {
