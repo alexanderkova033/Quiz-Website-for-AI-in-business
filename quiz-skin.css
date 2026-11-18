@@ -398,3 +398,179 @@ main { padding-top: 12px; position: relative; z-index: 1; }
 .stage-reached strong { display: block; margin-top: .2rem; font-family: var(--font-ui); font-weight: 800; font-size: clamp(1.5rem, 6.5vw, 2rem); letter-spacing: -.02em; text-transform: none; color: var(--cyan); }
 body[data-stage="7"] .stage-reached strong { color: var(--pink-ink); }
 #screen-results .headline-md { font-size: clamp(1.4rem, 5.5vw, 1.8rem); }
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   v3 DELTA (18 Nov): every correct answer zooms out, and the zoom is measurable.
+   Hooks from app.js (see design-review_v3.md):
+     body[data-step]   = correct % 3  (0, 1, 2)
+     body[data-scale]  = a quarter of the view width, e.g. "7 m"  → scale bar
+     .topbar[data-view] / [data-zoom] = "28 m" / "×28"             → VIEW/ZOOM gauge
+     .zoom-line        = the "Zoomed out: view now 28 m wide (×28)" lines
+   Only the scene moves; cards and buttons never do. Reduced motion: styles.css
+   sets transitions and animations to none, so every change is instant.
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. A notch further out on every correct answer ──
+   Each step is the same ratio (×0.8), so every answer feels like the same-sized
+   zoom, as in zoom-scale.md. The 3rd correct answer moves to the next stage's scene
+   (its zoom-N cross-fade), where the subject is back at full size with no transition,
+   so the two motions don't fight. */
+body { --zoom: 1; }
+body[data-step="1"] { --zoom: .8; }
+body[data-step="2"] { --zoom: .64; }
+
+.aurora-1,
+.aurora-2 {
+  transform: scale(var(--zoom));
+  transform-origin: 50% 100%;           /* shrink into the distance, standing on the ground */
+  will-change: transform;
+}
+body:not([data-step="0"]) .aurora-1,
+body:not([data-step="0"]) .aurora-2 {
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+/* Scenes that float rather than stand shrink toward their own centre */
+body[data-stage="5"] .aurora-1,
+body[data-stage="6"] .aurora-1,
+body[data-stage="7"] .aurora-1,
+body[data-stage="7"] .aurora-2 { transform-origin: 50% 50%; }
+
+/* ── 2. iPad fix: in stage 7 the Moon sat behind the card's top-right corner at every
+   iPad size. It moves to the bottom right; the small Earth goes to the left. ── */
+body[data-stage="7"] .aurora-1 {
+  top: auto; bottom: 9vh; right: -14vmin; left: auto; translate: none;
+  width: 56vmin; height: 56vmin;
+}
+body[data-stage="7"] .aurora-2 { left: 4vw; top: auto; bottom: 26vh; }
+
+/* ── 3. VIEW / ZOOM gauge (top left, replaces ALTITUDE when app.js sets it) ── */
+html body .topbar[data-view]:has(#progressWrap:not([hidden]))::before {
+  content: "VIEW " attr(data-view) "\A ZOOM " attr(data-zoom) !important;
+  color: var(--cyan);
+}
+
+/* ── 4. Scale bar: a map-style bar, bottom-left of the scene. It is exactly a quarter
+   of the screen wide (25vw), and app.js labels it with a quarter of the view width,
+   so it really measures the scene. It sits under the cards (z-index 0) and never
+   covers them. ── */
+body[data-scale]::after {
+  content: attr(data-scale);
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 0;
+  box-sizing: content-box;
+  width: 25vw;
+  min-width: 6.5rem;
+  padding: 6px 0 20px;
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  line-height: 1;
+  color: var(--cyan);
+  white-space: nowrap;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) 0 calc(100% - 9px) / 3px 11px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 100% calc(100% - 9px) / 3px 11px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 50% calc(100% - 11px) / 2px 7px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 0 calc(100% - 12px) / 100% 3px no-repeat,
+    rgb(19 35 58 / .88);
+  box-shadow: 0 0 0 6px rgb(19 35 58 / .88);   /* a little HUD plate around it */
+}
+/* When the page scrolls to the end, the footer text stays clear of the bar */
+body[data-scale] .foot { padding-bottom: 76px; }
+.foot { position: relative; z-index: 1; }
+
+/* ── 5. The "Zoomed out: …" lines (feedback and results) ── */
+.zoom-line {
+  margin: 0 0 .6rem;
+  font-family: var(--font-pixel);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+#screen-results .zoom-line { text-align: center; margin: 0; }
+
+/* ═══ v3b fixes (18 Nov, midday): bigger gauge and scale text, footer on a plate ═══ */
+
+/* 1. Gauges: 16px on phones, 18px on tablets. On phones the progress squares take
+      their own row so a 17-character ZOOM ("×150,000,000,000") fits. */
+.topbar:has(#progressWrap:not([hidden]))::before,
+.topbar[data-score]:has(#progressWrap:not([hidden]))::after {
+  font-size: 1rem;
+  letter-spacing: .03em;
+  line-height: 1.25;
+  padding: .45rem .7rem .5rem;
+}
+@media (min-width: 700px) {
+  .topbar:has(#progressWrap:not([hidden]))::before,
+  .topbar[data-score]:has(#progressWrap:not([hidden]))::after { font-size: 1.125rem; }
+}
+/* Phones: VIEW/ZOOM is a full-width strip; progress squares and SCORE share the row below */
+@media (max-width: 699px) {
+  .topbar { flex-wrap: wrap; row-gap: .5rem; }
+  .topbar:has(#progressWrap:not([hidden]))::before { flex: 1 0 100%; box-sizing: border-box; }
+  .topbar:has(#progressWrap:not([hidden])) .progress-wrap { order: 2; flex: 1 1 auto; max-width: none; }
+}
+
+/* The rug in the room scene (stage 2) read as a stray pink bar on tablets: removed.
+   Same scene, minus that one shape. */
+body[data-stage="2"] .aurora-1 {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 54' shape-rendering='crispEdges'%3E%3Cpath fill='%232e2230' d='M0 44h96v10H0z'/%3E%3Cpath fill='%233d2f40' d='M0 43h96v1H0z'/%3E%3Cpath fill='%232a3550' d='M58 8h26v20H58z'/%3E%3Cpath fill='%230b1626' d='M60 10h22v16H60z'/%3E%3Cpath fill='%232a3550' d='M70 10h2v16h-2zM60 17h22v2H60z'/%3E%3Cpath fill='%23eaf6ff' d='M63 12h1v1h-1zM78 13h1v1h-1zM66 22h1v1h-1zM75 22h1v1h-1z'/%3E%3Cpath fill='%234a3428' d='M6 14h16v30H6z'/%3E%3Cpath fill='%23ff4f7b' d='M8 16h3v6H8zM9 32h3v6H9z'/%3E%3Cpath fill='%234fd8ff' d='M12 17h2v5h-2zM15 24h3v6h-3z'/%3E%3Cpath fill='%23ffc93c' d='M15 16h4v6h-4zM8 24h4v6H8zM14 33h5v5h-5z'/%3E%3Cpath fill='%236b4a33' d='M30 34h26v2H30zM31 36h2v8h-2zM53 36h2v8h-2z'/%3E%3Cpath fill='%232a3550' d='M37 25h12v9H37z'/%3E%3Cpath fill='%234fd8ff' d='M38 26h10v7H38z'/%3E%3Cpath fill='%231f3a5a' d='M38 38h9v2h-9zM41 40h2v4h-2z'/%3E%3C/svg%3E");
+}
+
+/* 2. Scale bar: bigger label; the plate grows to fit it, the bar stays exactly 25vw */
+body[data-scale]::after {
+  width: auto;
+  min-width: 25vw;
+  padding: 6px 0 22px;
+  text-align: left;
+  font-size: 1rem;
+  letter-spacing: .03em;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) 0 calc(100% - 9px) / 3px 12px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) calc(25vw - 3px) calc(100% - 9px) / 3px 12px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) calc(12.5vw - 1px) calc(100% - 11px) / 2px 8px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 0 calc(100% - 13px) / 25vw 3px no-repeat,
+    rgb(19 35 58 / .9);
+  box-shadow: 0 0 0 8px rgb(19 35 58 / .9);
+}
+@media (min-width: 700px) { body[data-scale]::after { font-size: 1.125rem; } }
+body[data-scale] .foot { padding-bottom: 88px; }
+
+/* 3. Footer: on its own small plate, so it never sits on the scene's floor */
+.foot p {
+  display: inline-block;
+  padding: .45rem .8rem;
+  background: rgb(19 35 58 / .9);
+  clip-path: var(--notch);
+}
+
+/* ═══ Site Builder: tablet layout + touch fixes (18 Nov) ═══ */
+/* Tablets: a wider card (about 680px) and bigger small print, read at arm's length */
+@media (min-width: 700px) {
+  main { max-width: 46rem; }
+  #screen-question .card,
+  #screen-results,
+  #screen-share { max-width: 43rem; }
+  #screen-landing,
+  #screen-round { max-width: 40rem; }
+  #screen-question .opt { font-size: 1.35rem; }
+  #screen-question .explain { font-size: 1.2rem; }
+  #screen-question .source { font-size: .95rem; }
+  #screen-question .zoom-line { font-size: .95rem; }
+  #screen-results .takeaways li { font-size: 1.1rem; }
+}
+/* Landscape tablets and laptops: short A–D answers as a 2×2 grid (long ones stay one per row) */
+@media (min-width: 900px) and (orientation: landscape) {
+  #screen-question .options.short:not(.realfake) { grid-template-columns: 1fr 1fr; }
+}
+/* Touch screens: no hover colour left behind on the button you just tapped */
+@media (hover: none) {
+  .btn-primary:hover { background: var(--pink); }
+  .btn-ghost:hover { background: var(--hud-2); }
+}

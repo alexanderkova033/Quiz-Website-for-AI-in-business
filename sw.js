@@ -1,6 +1,6 @@
 /* Offline support: site files are network-first (always fresh online, cached for offline);
    Google Fonts are cache-first. Bump VERSION when files change. */
-const VERSION = "quiz-v4";
+const VERSION = "quiz-v5";
 const CORE = ["./", "index.html", "styles.css", "quiz-skin.css", "app.js", "questions.json"];
 
 self.addEventListener("install", (e) => {

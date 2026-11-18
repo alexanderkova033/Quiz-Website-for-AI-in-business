@@ -26,10 +26,34 @@
     { name: "Deep space", line: "Nothing gets past you. You've zoomed all the way out: the full picture." },
   ];
   const stageFor = (n) => Math.min(STAGES.length, 1 + Math.floor(n / 3));
+
+  /* Measurable zoom, one row per number of correct answers (HQ zoom-scale.md).
+     view = how wide the scene is; zoom = view ÷ 1 m; quarter = scale-bar label (a quarter of view). */
+  const ZOOM = [
+    ["1.0 m", "×1", "25 cm"], ["1.8 m", "×2", "45 cm"], ["3.3 m", "×3", "83 cm"],
+    ["6 m", "×6", "1.5 m"], ["28 m", "×28", "7 m"], ["129 m", "×129", "32 m"],
+    ["600 m", "×600", "150 m"], ["2.4 km", "×2,400", "600 m"], ["9.9 km", "×10,000", "2.5 km"],
+    ["40 km", "×40,000", "10 km"], ["124 km", "×124,000", "31 km"], ["386 km", "×386,000", "97 km"],
+    ["1,200 km", "×1.2 million", "300 km"], ["2,785 km", "×2.8 million", "696 km"], ["6,463 km", "×6.5 million", "1,616 km"],
+    ["15,000 km", "×15 million", "3,750 km"], ["56,000 km", "×56 million", "14,000 km"], ["213,000 km", "×213 million", "53,000 km"],
+    ["800,000 km", "×800 million", "200,000 km"], ["150 million km", "×150 billion", "37.5 million km"],
+  ].map(([view, zoom, quarter]) => ({ view, zoom, quarter }));
+  const zoomAt = (n) => ZOOM[Math.min(n, ZOOM.length - 1)];
+  const zoomSentence = (n) => n === 0
+    ? `You stayed at ×1: your view is ${zoomAt(0).view} wide.`
+    : `You zoomed out ${zoomAt(n).zoom}: your view is ${zoomAt(n).view} wide.`;
+
+  // Runs on start (n = 0) and on every correct answer; a wrong answer changes nothing.
   function setStage(n) {
-    const s = stageFor(n);
-    const changed = document.body.dataset.stage !== String(s);
-    document.body.dataset.stage = s;
+    const s = stageFor(n), z = zoomAt(n), b = document.body;
+    const changed = b.dataset.stage !== String(s);
+    b.dataset.stage = s;
+    b.dataset.step = n % 3;                       // per-answer scene zoom (skin v3)
+    b.style.setProperty("--correct", n);          // the step as a CSS variable too
+    b.dataset.scale = z.quarter;                  // scale-bar label
+    const tb = document.querySelector(".topbar");
+    tb.dataset.view = z.view;
+    tb.dataset.zoom = z.zoom;
     return changed ? s : 0;
   }
 
@@ -106,7 +130,8 @@
     $("progressFill").style.width = (idx / order.length) * 100 + "%";
 
     const box = $("qOptions");
-    box.className = "options" + (q.type === "realfake" ? " realfake" : "");
+    box.className = "options" + (q.type === "realfake" ? " realfake" : "")
+      + (q.options.every((o) => o.length <= 32) ? " short" : "");   // short answers may sit 2×2
     box.replaceChildren();
     q.options.forEach((opt, i) => {
       const b = document.createElement("button");
@@ -163,7 +188,12 @@
     $("progressBar").setAttribute("aria-valuenow", idx + 1);
     $("progressFill").style.width = ((idx + 1) / order.length) * 100 + "%";
     const moved = correct ? setStage(score) : 0;
-    $("liveRegion").textContent = v.textContent + " " + q.explanation + (moved ? ` Zoomed out to: ${STAGES[moved - 1].name}.` : "");
+    const zl = $("zoomLine");
+    zl.hidden = !correct;
+    zl.textContent = correct ? `Zoomed out: view now ${zoomAt(score).view} wide (${zoomAt(score).zoom})` : "";
+    $("liveRegion").textContent = v.textContent + " " + q.explanation
+      + (correct ? ` ${zl.textContent}.` : "")
+      + (moved ? ` New scene: ${STAGES[moved - 1].name}.` : "");
     $("nextBtn").focus({ preventScroll: true });
     // Bring the whole Next button into view without pushing the verdict off the top.
     requestAnimationFrame(() => {
@@ -195,6 +225,7 @@
     $("resultTitle").textContent = r.title;
     const st = STAGES[stageFor(score) - 1];
     $("stageName").textContent = st.name;
+    $("zoomResult").textContent = zoomSentence(score);
     $("resultBlurb").textContent = st.line;
     show("results");
   }
@@ -268,7 +299,7 @@
     ctx.fillText(r.title, 100, 790);
 
     ctx.fillStyle = muted; ctx.font = 'italic 400 44px "Literata", Georgia, serif';
-    wrapLines(ctx, `Zoomed out to ${STAGES[stageFor(score) - 1].name} on the AI × UK Politics quiz.`, W - 200)
+    wrapLines(ctx, `${zoomSentence(score)} (${STAGES[stageFor(score) - 1].name})`, W - 200)
       .forEach((l, i) => ctx.fillText(l, 100, 880 + i * 60));
 
     // CTA pill
